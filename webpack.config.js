@@ -82,7 +82,7 @@ module.exports = ({ development }) => ({
         }
     },
       {
-        test: /\.(tsx|ts|jsx|js)$/i,
+        test: /\.(tsx|ts|js|jsx)$/i,
         exclude: /node_modules/,
         use: {
           loader: "babel-loader"
