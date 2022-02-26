@@ -1,10 +1,8 @@
 import React, { FC } from "react";
+import { ItoDoItem } from "../types/types";
 
 
-  export interface ItoDoItem {
-    label?: string;
-    important?:boolean
-  }
+
 
 
 function ToDoListItem({label, important}:ItoDoItem):JSX.Element {
@@ -13,7 +11,7 @@ function ToDoListItem({label, important}:ItoDoItem):JSX.Element {
         color: important ? "tomato" : "black"
     } 
 
-    return <span style={style}>Learn React and Node js</span>
+    return <span style={style}>{label}</span>
 };
 
 export default ToDoListItem;
