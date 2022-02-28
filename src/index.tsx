@@ -1,8 +1,9 @@
 import React, { Component, ReactElement, ReactHTMLElement } from "react";
 import ReactDOM from "react-dom";
-import AppHeader from "./components/app-header";
-import SearchPanel from "./components/search-panel";
-import ToDoList from "./components/todo-list";
+import AppHeader from "./components/app-header/app-header";
+import ItemStatusFilter from "./components/item-status-filter/item-status-filter";
+import SearchPanel from "./components/search-panel/search-panel";
+import ToDoList from "./components/todo-list/todo-list";
 import "./styles.css";
 import { ItodoData, ItoDoItem } from "./types/types";
 
@@ -18,9 +19,12 @@ function App():JSX.Element{
     ]
 
     return(
-        <div>
-            <AppHeader/>
-            <SearchPanel/>
+        <div className="todo-app">
+            <AppHeader toDo="1" done="3"/>
+            <div className="top-panel d-flex">
+        <SearchPanel />
+        <ItemStatusFilter />
+      </div>
             <ToDoList todos={todoData}/>
         </div>
     )

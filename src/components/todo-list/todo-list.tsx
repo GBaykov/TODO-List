@@ -1,6 +1,7 @@
 import React, { FC } from "react";
-import { ItodoData, ItoDoItem } from "../types/types";
-import ToDoListItem from "./todo-list-item";
+import { ItodoData, ItoDoItem } from "../../types/types";
+import ToDoListItem from "../todo-list-item/todo-list-item";
+import './todo-list.css'
 
 //const itemsArr = ['learn React', 'make portfolio', 'bigin to earn money']
 function  ToDoList(props:ItodoData):JSX.Element{
@@ -9,13 +10,13 @@ function  ToDoList(props:ItodoData):JSX.Element{
         const {id, ...itemProps} = item;
         return (
             // <li><ToDoListItem label={item.label} important={item.important}/></li> =======!! SPRED operator
-            <li key={id}><ToDoListItem {...itemProps}/></li> 
+            <li className="list-group-item" key={id}><ToDoListItem {...itemProps}/></li> 
         )
     })
 
 
     return (
-    <ul>
+    <ul className="list-group todo-list">
         {elements}
 {/* <li><ToDoListItem label={""} important/></li>
 <li><ToDoListItem/></li> */}

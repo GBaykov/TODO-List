@@ -7,3 +7,8 @@ export interface ItoDoItem {
   export interface ItodoData {
       todos: ItoDoItem[]
   }
+
+  export interface Iheader {
+    toDo:string, 
+    done:string
+  }
