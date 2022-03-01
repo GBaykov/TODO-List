@@ -41,8 +41,8 @@ onLabelClick = () => {
     }
 
     return (
-      <span className={className} onClick={this.onLabelClick}>
-        <span className="todo-list-item-label" >
+      <span className={className} >
+        <span className="todo-list-item-label" onClick={this.onLabelClick}>
           {label}
         </span>
 

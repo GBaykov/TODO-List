@@ -2,7 +2,7 @@ export interface ItoDoItem {
   label?: string;
   important?: boolean;
   id?: number;
-  onDeleted?:(e?: React.MouseEvent, id?:number) => void
+  onDeleted?:(e?: React.MouseEvent) => void
 }
 
 export interface ItodoData {
