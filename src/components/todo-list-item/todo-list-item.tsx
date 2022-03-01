@@ -2,6 +2,8 @@ import React, { FC } from "react";
 import { ItoDoItem } from "../../types/types";
 import "./todo-list-item.css";
 
+
+
 export default class ToDoListItem extends React.Component<ItoDoItem> {
 
 state = {
@@ -25,12 +27,8 @@ onLabelClick = () => {
     }
 
   render(): React.ReactNode {
-    const { label }: ItoDoItem = this.props;
+    const { label, onDeleted  }: ItoDoItem = this.props;
 
-    // const style = {
-    //   color: important ? "steelblue" : "black",
-    //   fontWeight: important ? "bold" : "normal"
-    // };
     const {done, important} = this.state
 
     let className:string = 'todo-list-item';
@@ -57,7 +55,8 @@ onLabelClick = () => {
 
         <button
           type="button"
-          className="btn btn-outline-danger btn-sm float-right">
+          className="btn btn-outline-danger btn-sm float-right"
+          onClick={onDeleted}>
           <i className="fa fa-trash-o" />
         </button>
       </span>

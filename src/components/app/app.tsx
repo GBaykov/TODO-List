@@ -13,7 +13,9 @@ function App(): JSX.Element {
     { label: "Learn Node", important: false, id: 2 },
     { label: "Get Job", important: true, id: 3 }
   ];
-
+// const onDeleted =()=>{
+// console.log('deleted')
+// }
   return (
     <div className="todo-app">
       <AppHeader toDo="1" done="3" />
@@ -21,9 +23,9 @@ function App(): JSX.Element {
         <SearchPanel />
         <ItemStatusFilter />
       </div>
-      <ToDoList todos={todoData} />
+      <ToDoList todos={todoData} onDeleted={(id)=>console.log('del', id)}/> 
     </div>
   );
 }
-
+// onDeleted={(id:string ) => console.log('del', id)}
 export default App;
