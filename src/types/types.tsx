@@ -15,6 +15,10 @@ export interface Iheader {
   done: string;
 }
 
+export interface IAddItem {
+  onAddItem:( text?:string,e?: React.MouseEvent) => void
+}
+
 // export interface EventHandlerProps {
 //   onDeleted: 
 // }

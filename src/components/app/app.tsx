@@ -1,6 +1,7 @@
 import React, { Component, ReactElement, ReactHTMLElement } from "react";
 import ReactDOM from "react-dom";
 import { ItoDoItem } from "../../types/types";
+import AddItem from "../add-item/add-item";
 import AppHeader from "../app-header";
 import ItemStatusFilter from "../item-status-filter";
 import SearchPanel from "../search-panel";
@@ -8,6 +9,8 @@ import ToDoList from "../todo-list";
 import "./app.css";
 
 export default class App extends Component {
+
+  maxId = 100;
 
   state = {
     todoData: [
@@ -20,12 +23,24 @@ export default class App extends Component {
   deleteElement = (id:number | undefined) => {
 this.setState((state)=> {
   
-  const index = this.state.todoData.findIndex((el)=> el.id = id );
-  const before = this.state.todoData.slice(0,index);
+  let index = this.state.todoData.findIndex((el)=> el.id === id );
+  console.log(index)
+  const before = this.state.todoData.slice(0, index);
   const after = this.state.todoData.slice(index + 1);
   const newArr = [...before, ...after]
   return {
     todoData:newArr
+  }
+})
+  }
+
+  onAddItem = (text:any) => {
+this.setState((state)=> {
+  const newItem:ItoDoItem =  { label: text, important: true, id: this.maxId++ }
+ 
+   const newArr = [...this.state.todoData, newItem]
+  return {
+    todoData: newArr
   }
 })
   }
@@ -45,11 +60,10 @@ this.setState((state)=> {
           <ItemStatusFilter />
         </div>
         <ToDoList todos={this.state.todoData} onDeleted={this.deleteElement}/> 
+        <AddItem onAddItem={this.onAddItem}/>
       </div>
     );
   }
-
-  
 }
 
 // export default App;
