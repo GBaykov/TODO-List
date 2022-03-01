@@ -1,17 +1,35 @@
-import React from "react";
-import './item-status-filter.css';
+import React, { Component } from "react";
+import "./item-status-filter.css";
 
-function ItemStatusFilter(){
+export default class ItemStatusFilter extends Component {
+  render(): React.ReactNode {
     return (
-        <div className="btn-group">
-          <button type="button"
-                  className="btn btn-info">All</button>
-          <button type="button"
-                  className="btn btn-outline-secondary">Active</button>
-          <button type="button"
-                  className="btn btn-outline-secondary">Done</button>
-        </div>
-      );
+      <div className="btn-group">
+        <button type="button" className="btn btn-info">
+          All
+        </button>
+        <button type="button" className="btn btn-outline-secondary">
+          Active
+        </button>
+        <button type="button" className="btn btn-outline-secondary">
+          Done
+        </button>
+      </div>
+    );
+  }
 }
 
-export default ItemStatusFilter;
+// function ItemStatusFilter(){
+//     return (
+//         <div className="btn-group">
+//           <button type="button"
+//                   className="btn btn-info">All</button>
+//           <button type="button"
+//                   className="btn btn-outline-secondary">Active</button>
+//           <button type="button"
+//                   className="btn btn-outline-secondary">Done</button>
+//         </div>
+//       );
+// }
+
+// export default ItemStatusFilter;

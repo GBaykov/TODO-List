@@ -7,28 +7,23 @@ import SearchPanel from "../search-panel";
 import ToDoList from "../todo-list";
 import "./app.css";
 
+function App(): JSX.Element {
+  const todoData: ItoDoItem[] = [
+    { label: "Learn Angular", important: false, id: 1 },
+    { label: "Learn Node", important: false, id: 2 },
+    { label: "Get Job", important: true, id: 3 }
+  ];
 
-
-
-
-function App():JSX.Element{
-
-    const todoData: ItoDoItem[] = [
-        {label: "Learn Angular", important: false, id:1},
-        {label: "Learn Node", important: false, id:2},
-        {label: "Get Job", important: true, id:3}
-    ]
-
-    return(
-        <div className="todo-app">
-            <AppHeader toDo="1" done="3"/>
-            <div className="top-panel d-flex">
+  return (
+    <div className="todo-app">
+      <AppHeader toDo="1" done="3" />
+      <div className="top-panel d-flex">
         <SearchPanel />
         <ItemStatusFilter />
       </div>
-            <ToDoList todos={todoData}/>
-        </div>
-    )
+      <ToDoList todos={todoData} />
+    </div>
+  );
 }
 
 export default App;
