@@ -19,7 +19,7 @@ export default class App extends Component {
       this.createItem("Get Job")
     ] as ItoDoItem[],
     term:'',
-    filter:'All'
+    filter:'active'
   }
 
   createItem(label:string | undefined){
@@ -99,7 +99,7 @@ this.setState((state)=> {
     if(term.length === 0) return arr;
   return arr.filter((el)=>{
     if(el.label) {
-      return el.label.indexOf(term) > -1
+      return el.label.toLowerCase().indexOf(term.toLowerCase()) > -1
     }
     
   })
@@ -109,18 +109,34 @@ this.setState({
   term:term
 })
   }
+  onFilterchchange= (filter:string) => {
+this.setState({filter})
+}
+
+  filterFunc(arr:ItoDoItem[], filter:string){
+switch(filter){
+ case 'all':
+   return arr;
+ case 'active':
+   return arr.filter((el)=>!el.done);
+   case 'done':
+   return arr.filter((el)=>el.done);
+   default: 
+   return arr;
+}
+  }
 
   render(): React.ReactNode {
     const {todoData, filter, term} = this.state;
  const doneCount = todoData.filter((el)=>el.done).length;
  const todoCount = todoData.length - doneCount;
- const visibleItems = this.search(todoData, term)
+ const visibleItems = this.filterFunc(this.search(todoData, term), filter) 
     return (
       <div className="todo-app">
         <AppHeader toDo={todoCount} done={doneCount} />
         <div className="top-panel d-flex">
           <SearchPanel term={term} onSearchchange={this.onSearchchange}/>
-          <ItemStatusFilter filter={filter}/>
+          <ItemStatusFilter filter={filter} onFilterchchange={this.onFilterchchange}/>
         </div>
         <ToDoList todos={visibleItems} 
         onDeleted={this.deleteElement}

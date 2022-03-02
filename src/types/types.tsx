@@ -27,7 +27,8 @@ export interface IAddItem {
 }
 
 export interface IFilter {
-  filter:string
+  filter:string;
+  onFilterchchange:( filter:string, e?: React.MouseEvent) => void;
 }
 
 export interface ISearchPanel {

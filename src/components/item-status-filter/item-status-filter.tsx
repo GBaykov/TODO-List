@@ -3,32 +3,36 @@ import { IFilter } from "../../types/types";
 import "./item-status-filter.css";
 
 export default class ItemStatusFilter extends Component<IFilter> {
+
+  buttons = [
+    {name:'all', label:'All' },
+    {name:'active', label:'Active' },
+    {name:'done', label:'Done' }
+  ]
   
   onBtnclick = (e:React.FormEvent) => {
 console.log(e.target)
   }
 
   render(): React.ReactNode {
-    const {filter}:IFilter = this.props;
 
+    const {filter, onFilterchchange}:IFilter = this.props;
+
+const buttons = this.buttons.map(({name, label})=>{
+  const isActive = filter === name;
+  const clazz = isActive? 'btn-info' : 'btn-outline-secondary'
+ return(
+  <button type="button" className={`btn ${clazz}`}
+  key={name}
+  onClick={()=>onFilterchchange(name)}>
+    {label}
+  </button>
+ )
+})
     
     return (
       <div className="btn-group">
-        <button type="button" className="btn btn-info"
-        name='All'
-        onClick={this.onBtnclick}>
-          All
-        </button>
-        <button type="button" className="btn btn-outline-secondary"
-        name='Active'
-        onClick={this.onBtnclick}>
-          Active
-        </button>
-        <button type="button" className="btn btn-outline-secondary"
-        onClick={this.onBtnclick}
-        name='Done'>
-          Done
-        </button>
+       {buttons}
       </div>
     );
   }
