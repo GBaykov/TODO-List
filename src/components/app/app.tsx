@@ -14,19 +14,25 @@ export default class App extends Component {
 
   state = {
     todoData: [
-      { label: "Learn Angular", important: false, id: 1 },
-      { label: "Learn Node", important: false, id: 2 },
-      { label: "Get Job", important: true, id: 3 }
+      this.createItem("Learn Angular"),
+      this.createItem("Learn Node"),
+      this.createItem("Get Job")
     ] as ItoDoItem[]
+  }
+
+  createItem(label:string | undefined){
+    return {
+       label: label, important: false,done:false, id: this.maxId++ 
+    }
   }
 
   deleteElement = (id:number | undefined) => {
 this.setState((state)=> {
-  
-  let index = this.state.todoData.findIndex((el)=> el.id === id );
+  const {todoData} = this.state;
+  let index = todoData.findIndex((el)=> el.id === id );
   console.log(index)
-  const before = this.state.todoData.slice(0, index);
-  const after = this.state.todoData.slice(index + 1);
+  const before = todoData.slice(0, index);
+  const after = todoData.slice(index + 1);
   const newArr = [...before, ...after]
   return {
     todoData:newArr
@@ -34,10 +40,9 @@ this.setState((state)=> {
 })
   }
 
-  onAddItem = (text:any) => {
+  onAddItem = (text:string | undefined) => {
 this.setState((state)=> {
-  const newItem:ItoDoItem =  { label: text, important: true, id: this.maxId++ }
- 
+  const newItem:ItoDoItem =  this.createItem(text)
    const newArr = [...this.state.todoData, newItem]
   return {
     todoData: newArr
@@ -45,21 +50,66 @@ this.setState((state)=> {
 })
   }
 
+// toggleProperty(arr:ItoDoItem[], id:number, propName:any){
+
+//   let index = arr.findIndex((el)=> el.id === id );
+//   const oldItem = arr[index];
+//   const newItem = {...oldItem, [propName]: !oldItem[propName]}
+//   const before = arr.slice(0, index);
+//   const after = arr.slice(index + 1);
+//   const newArr = [...before,newItem, ...after];
+//   return{
+//     todoData:newArr
+//   }
+// }
+
+  onToggleDone = (id:number | undefined) => {
+    this.setState((state)=>{
+      const {todoData} = this.state;
+      let index = todoData.findIndex((el)=> el.id === id );
+      const oldItem = todoData[index];
+      const newItem = {...oldItem, done: !oldItem.done}
+      const before = todoData.slice(0, index);
+      const after = todoData.slice(index + 1);
+      const newArr = [...before,newItem, ...after];
+      return{
+        todoData:newArr
+      }
+    })
+  }
+
+  onToggleImportant = (id:number | undefined) => {
+    this.setState((state)=>{
+      const {todoData} = this.state;
+      let index = todoData.findIndex((el)=> el.id === id );
+      const oldItem = todoData[index];
+      const newItem = {...oldItem, important: !oldItem.important}
+      const before = todoData.slice(0, index);
+      const after = todoData.slice(index + 1);
+      const newArr = [...before,newItem, ...after];
+      return{
+        todoData:newArr
+      }
+    })
+  }
+
+  
+
   render(): React.ReactNode {
-    const todoData: ItoDoItem[] = [
-      { label: "Learn Angular", important: false, id: 1 },
-      { label: "Learn Node", important: false, id: 2 },
-      { label: "Get Job", important: true, id: 3 }
-    ];
- 
+    const {todoData} = this.state;
+ const doneCount = todoData.filter((el)=>el.done).length;
+ const todoCount = todoData.length - doneCount;
     return (
       <div className="todo-app">
-        <AppHeader toDo="1" done="3" />
+        <AppHeader toDo={todoCount} done={doneCount} />
         <div className="top-panel d-flex">
           <SearchPanel />
           <ItemStatusFilter />
         </div>
-        <ToDoList todos={this.state.todoData} onDeleted={this.deleteElement}/> 
+        <ToDoList todos={todoData} 
+        onDeleted={this.deleteElement}
+        onToggleImportant={this.onToggleImportant}
+        onToggleDone={this.onToggleDone}/> 
         <AddItem onAddItem={this.onAddItem}/>
       </div>
     );

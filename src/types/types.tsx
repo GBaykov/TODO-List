@@ -1,22 +1,29 @@
 export interface ItoDoItem {
   label?: string;
-  important?: boolean;
+  
   id?: number;
-  onDeleted?:(e?: React.MouseEvent) => void
+  onDeleted?:(e?: React.MouseEvent) => void;
+  onToggleImportant?:( e?: React.MouseEvent) => void;
+  onToggleDone?:( e?: React.MouseEvent) => void;
+  done?:boolean;
+  important?: boolean;
+
 }
 
 export interface ItodoData {
   todos: ItoDoItem[];
-  onDeleted:( id?:number) => void
+  onDeleted:( id?:number) => void,
+  onToggleImportant:( id?:number) => void,
+  onToggleDone:( id?:number) => void,
 }
 
 export interface Iheader {
-  toDo: string;
-  done: string;
+  toDo: number;
+  done: number;
 }
 
 export interface IAddItem {
-  onAddItem:( text?:string,e?: React.MouseEvent) => void
+  onAddItem:( text?:string,e?: React.FormEvent<HTMLInputElement>) => void
 }
 
 // export interface EventHandlerProps {
