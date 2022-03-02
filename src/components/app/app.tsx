@@ -17,7 +17,9 @@ export default class App extends Component {
       this.createItem("Learn Angular"),
       this.createItem("Learn Node"),
       this.createItem("Get Job")
-    ] as ItoDoItem[]
+    ] as ItoDoItem[],
+    term:'',
+    filter:'All'
   }
 
   createItem(label:string | undefined){
@@ -93,20 +95,34 @@ this.setState((state)=> {
     })
   }
 
-  
+  search(arr:ItoDoItem[], term:string){
+    if(term.length === 0) return arr;
+  return arr.filter((el)=>{
+    if(el.label) {
+      return el.label.indexOf(term) > -1
+    }
+    
+  })
+  }
+  onSearchchange = (term:string) => {
+this.setState({
+  term:term
+})
+  }
 
   render(): React.ReactNode {
-    const {todoData} = this.state;
+    const {todoData, filter, term} = this.state;
  const doneCount = todoData.filter((el)=>el.done).length;
  const todoCount = todoData.length - doneCount;
+ const visibleItems = this.search(todoData, term)
     return (
       <div className="todo-app">
         <AppHeader toDo={todoCount} done={doneCount} />
         <div className="top-panel d-flex">
-          <SearchPanel />
-          <ItemStatusFilter />
+          <SearchPanel term={term} onSearchchange={this.onSearchchange}/>
+          <ItemStatusFilter filter={filter}/>
         </div>
-        <ToDoList todos={todoData} 
+        <ToDoList todos={visibleItems} 
         onDeleted={this.deleteElement}
         onToggleImportant={this.onToggleImportant}
         onToggleDone={this.onToggleDone}/> 

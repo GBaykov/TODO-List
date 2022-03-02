@@ -26,6 +26,11 @@ export interface IAddItem {
   onAddItem:( text?:string,e?: React.FormEvent<HTMLInputElement>) => void
 }
 
-// export interface EventHandlerProps {
-//   onDeleted: 
-// }
+export interface IFilter {
+  filter:string
+}
+
+export interface ISearchPanel {
+  term:string;
+  onSearchchange:( term:string,e?:React.ChangeEventHandler<HTMLInputElement>) => void
+}
