@@ -1,1 +1,2 @@
-# REACT-STUDY
+# todo list
+## https://gbaykov-todo.netlify.app
